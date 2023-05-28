@@ -1,4 +1,4 @@
-import React, {useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from './Searchbar.module.css';
 import { toast } from 'react-toastify';
@@ -12,9 +12,7 @@ const Searchbar = ({ onSubmit }) => {
   const [inputValue, setInputValue] = useState('');
 
   const handleChange = e => {
-    setInputValue({
-      inputValue: e.currentTarget.value.toLowerCase(),
-    });
+    setInputValue(e.currentTarget.value.toLowerCase());
   };
 
   const handleSubmit = event => {
