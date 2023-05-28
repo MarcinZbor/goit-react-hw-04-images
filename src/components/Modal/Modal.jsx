@@ -10,7 +10,13 @@ import styles from './Modal.module.css';
 //     window.removeEventListener('keydown', this.handleKeyDown);
 //   }
 
-const Modal = ({onModalClose}) => {
+const Modal = ({onModalClose, children}) => {
+  const handleKeyDown = event => {
+    if (event.key === "Escape"){
+      onModalClose()
+    }
+  }
+
 useEffect(() => {
   window.addEventListener("keydown", handleKeyDown);
 
@@ -26,13 +32,8 @@ const handleBackdropClick = e => {
   }
 }
 
-  const handleKeyDown = event => {
-    if (event.key === "Escape"){
-      onModalClose()
-    }
-  }
  
-    const {children } = this.props;
+
 
     return (
       <div className={styles.overlay} onClick={handleBackdropClick}>
