@@ -59,6 +59,9 @@ export const App = () => {
   //     this.setState({ loading: true });
 
   useEffect(() => {
+    if (inputValue.trim() === '') {
+      return;
+    }
     getPicturesData(inputValue, page)
       .then(response => {
         if (response.data.hits.length === 0) {
