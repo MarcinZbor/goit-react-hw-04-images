@@ -1,27 +1,20 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import styles from './Modal.module.css';
 
-// class Modal extends React.Component {
-//   componentDidMount() {
-//     window.addEventListener('keydown', this.handleKeyDown);
-//   }
-//   componentWillUnmount() {
-//     window.removeEventListener('keydown', this.handleKeyDown);
-//   }
-
 const Modal = ({ onModalClose, children }) => {
-  const handleKeyDown = event => {
+  const handleKeyDown = useCallback(event => {
     if (event.key === 'Escape') {
       onModalClose();
     }
-  };
+  }, [onModalClose]);
 
   useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown);
+    const onKeyDown = handleKeyDown;
+    window.addEventListener('keydown', onKeyDown);
 
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keydown', onKeyDown);
     };
   }, [handleKeyDown]);
 
