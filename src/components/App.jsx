@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Searchbar from './Searchbar/Searchbar';
@@ -9,47 +9,63 @@ import Modal from './Modal/Modal';
 import getPicturesData from 'API/getData';
 import styles from './App.module.css';
 
-export class App extends React.Component {
-  state = {
-    inputValue: '',
-    picturesData: [],
-    page: 1,
-    totalPages: 1,
-    loading: false,
-    isModal: false,
-    clickedImg: '',
+// export class App extends React.Component {
+//   state = {
+//     inputValue: '',
+//     picturesData: [],
+//     page: 1,
+//     totalPages: 1,
+//     loading: false,
+//     isModal: false,
+//     clickedImg: '',
+//   };
+
+
+export const App = () => {
+const [inputValue, setInputValue] = useState("")
+const [picturesData, setPicturesData] = useState([])
+const [page, setPage] = useState(1)
+const [totalPages, setTotalPages] = useState(1)
+const [loading, setLoading] = useState(false)
+const [isModal, setIsModal] = useState(false)
+const [clickedImg, setClickedImg] = useState("")
+
+}
+
+
+const handleSubmit = inputQuery => {
+  setInputValue(inputQuery);
+  setPage(1);
+  setPicturesData([]);
+};
+
+  const loaderClick = () => {
+    setPage(prevState =>  prevState + 1,
+    );
   };
 
-  handleSubmit = inputQuery => {
-    this.setState({ inputValue: inputQuery });
-    this.setState({ page: 1 });
-  };
-
-  loaderClick = () => {
-    this.setState(prevState => ({
-      ...prevState,
-      page: prevState.page + 1,
-    }));
-  };
-
-  handleImageClick = url => {
-    this.setState({ isModal: true, clickedImg: url });
+  const handleImageClick = url => {
+    setModal(true),
+    setClickedImg(url)
   };
 
   onModalClose = () => {
-    this.setState({ isModal: false });
+    setModal(false);
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    this.state.inputValue !== prevState.inputValue &&
-      this.setState({ picturesData: [] });
+  // componentDidUpdate(prevProps, prevState) {
+  //   this.state.inputValue !== prevState.inputValue &&
+  //     this.setState({ picturesData: [] });
 
-    if (
-      this.state.inputValue !== prevState.inputValue ||
-      this.state.page !== prevState.page
-    ) {
-      this.setState({ loading: true });
-      getPicturesData(this.state.inputValue, this.state.page)
+  //   if (
+  //     this.state.inputValue !== prevState.inputValue ||
+  //     this.state.page !== prevState.page
+  //   ) {
+  //     this.setState({ loading: true });
+
+
+
+      getPicturesData(inputValue, page)
         .then(response => {
           if (response.data.hits.length === 0) {
             toast.error(
@@ -76,29 +92,25 @@ export class App extends React.Component {
           toast.error(error.message, { theme: 'colored' });
         })
         .finally(() => {
-          this.setState({ loading: false });
+          setLoading(false );
         });
-    }
-  }
+      
+    
 
-  render() {
-    const { loading, picturesData, page, totalPages } = this.state;
 
     return (
       <div className={styles.container}>
-        <Searchbar onSubmit={this.handleSubmit} />
+        <Searchbar onSubmit={handleSubmit} />
         {loading && <Loader />}
-        <ImageGallery data={picturesData} onClickImg={this.handleImageClick} />
+        <ImageGallery data={picturesData} onClickImg={handleImageClick} />
         {picturesData.length !== 0 && page !== totalPages && (
-          <Button onClick={this.loaderClick} />
+          <Button onClick={loaderClick} />
         )}
         <ToastContainer autoClose={3000} />
         {this.state.isModal && (
-          <Modal onModalClose={this.onModalClose}>
-            {this.state.clickedImg}
+          <Modal onModalClose={onModalClose}>
+            {clickedImg}
           </Modal>
         )}
       </div>
     );
-  }
-}
