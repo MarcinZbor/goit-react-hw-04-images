@@ -67,12 +67,10 @@ export const App = () => {
             { theme: 'colored' }
           );
         } else {
-          this.setState(prevState => ({
-            picturesData: [...prevState.picturesData, ...response.data.hits],
-            totalPages: Math.ceil(
-              response.data.totalHits / response.data.hits.length
-            ),
-          }));
+          setPicturesData(prevState => [...prevState, ...response.data.hits]);
+          setTotalPages(
+            Math.ceil(response.data.totalHits / response.data.hits.length)
+          );
 
           if (this.state.page === 1) {
             toast.info(`Hooray! We found ${response.data.totalHits} images.`, {
