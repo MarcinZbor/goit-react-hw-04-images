@@ -10,7 +10,7 @@ import styles from './Modal.module.css';
 //     window.removeEventListener('keydown', this.handleKeyDown);
 //   }
 
-const Modal = ({onModalClose, handleKeyDown}) => {
+const Modal = ({onModalClose}) => {
 useEffect(() => {
   window.addEventListener("keydown", handleKeyDown);
 
