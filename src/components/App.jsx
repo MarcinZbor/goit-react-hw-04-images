@@ -75,7 +75,7 @@ export const App = () => {
             Math.ceil(response.data.totalHits / response.data.hits.length)
           );
 
-          if (this.state.page === 1) {
+          if (page === 1) {
             toast.info(`Hooray! We found ${response.data.totalHits} images.`, {
               theme: 'colored',
             });
