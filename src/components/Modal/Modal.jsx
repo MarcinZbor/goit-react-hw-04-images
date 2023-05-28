@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styles from './Modal.module.css';
 
@@ -10,40 +10,35 @@ import styles from './Modal.module.css';
 //     window.removeEventListener('keydown', this.handleKeyDown);
 //   }
 
-const Modal = ({onModalClose, children}) => {
+const Modal = ({ onModalClose, children }) => {
   const handleKeyDown = event => {
-    if (event.key === "Escape"){
-      onModalClose()
+    if (event.key === 'Escape') {
+      onModalClose();
     }
-  }
+  };
 
-useEffect(() => {
-  window.addEventListener("keydown", handleKeyDown);
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown);
 
-  return () => {
-    window.removeEventListener("keydown", handleKeyDown)
-  }
-}, [handleKeyDown])
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [handleKeyDown]);
 
+  const handleBackdropClick = e => {
+    if (e.target === e.currentTarget) {
+      onModalClose();
+    }
+  };
 
-const handleBackdropClick = e => {
-  if (e.target === e.currentTarget){
-    onModalClose()
-  }
-}
-
- 
-
-
-    return (
-      <div className={styles.overlay} onClick={handleBackdropClick}>
-        <div className={styles.modal}>
-          <img src={children} alt={children} />
-        </div>
+  return (
+    <div className={styles.overlay} onClick={handleBackdropClick}>
+      <div className={styles.modal}>
+        <img src={children} alt={children} />
       </div>
-    );
-  }
-
+    </div>
+  );
+};
 
 Modal.propTypes = {
   onModalClose: PropTypes.func.isRequired,

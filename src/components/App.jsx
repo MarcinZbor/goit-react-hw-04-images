@@ -40,8 +40,8 @@ export const App = () => {
   };
 
   const handleImageClick = url => {
-    setIsModal(true)
-    setClickedImg(url)
+    setIsModal(true);
+    setClickedImg(url);
   };
 
   const onModalClose = () => {
@@ -99,9 +99,7 @@ export const App = () => {
         <Button onClick={loaderClick} />
       )}
       <ToastContainer autoClose={3000} />
-      {isModal && (
-        <Modal onModalClose={onModalClose}>{clickedImg}</Modal>
-      )}
+      {isModal && <Modal onModalClose={onModalClose}>{clickedImg}</Modal>}
     </div>
   );
 };
