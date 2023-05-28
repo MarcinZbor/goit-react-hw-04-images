@@ -26,7 +26,7 @@ export const App = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [modal, setModal] = useState(false);
+  const [isModal, setIsModal] = useState(false);
   const [clickedImg, setClickedImg] = useState('');
 
   const handleSubmit = inputQuery => {
@@ -40,12 +40,12 @@ export const App = () => {
   };
 
   const handleImageClick = url => {
-    setModal(true),
-    setClickedImg(url);
+    setIsModal(true)
+    setClickedImg(url)
   };
 
   const onModalClose = () => {
-    setModal(false);
+    setIsModal(false);
   };
 
   // componentDidUpdate(prevProps, prevState) {
@@ -98,7 +98,7 @@ export const App = () => {
         <Button onClick={loaderClick} />
       )}
       <ToastContainer autoClose={3000} />
-      {this.state.isModal && (
+      {isModal && (
         <Modal onModalClose={onModalClose}>{clickedImg}</Modal>
       )}
     </div>
