@@ -26,7 +26,7 @@ export const App = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [Modal, setModal] = useState(false);
+  const [modal, setModal] = useState(false);
   const [clickedImg, setClickedImg] = useState('');
 
   const handleSubmit = inputQuery => {
@@ -40,7 +40,8 @@ export const App = () => {
   };
 
   const handleImageClick = url => {
-    setModal(true), setClickedImg(url);
+    setModal(true),
+    setClickedImg(url);
   };
 
   const onModalClose = () => {
